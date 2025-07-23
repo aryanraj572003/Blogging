@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express")
 const path = require("path")
 const mongoose = require("mongoose")
@@ -17,7 +18,7 @@ app.use(cookieParser())
 app.use(checkForAuthenticationCookie("token"))
 app.use(express.static(path.resolve('./public')));
 
-mongoose.connect('mongodb://localhost:27017/blogify')
+mongoose.connect(process.env.MONGO_URL)
 .then(console.log("MongoDB connected"))
 
 
