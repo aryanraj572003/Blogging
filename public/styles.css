@@ -1,0 +1,128 @@
+body, .warm-bg {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffe5d0 100%);
+  font-family: 'Quicksand', Arial, sans-serif;
+  color: #5a3e1b;
+}
+
+.custom-navbar {
+  background: #ffb86b !important;
+  border-bottom: 2px solid #ff9f43;
+}
+.site-title {
+  color: #5a3e1b;
+  letter-spacing: 1px;
+  font-size: 1.5rem;
+}
+
+.welcome-message {
+  background: #fff3e0;
+  border-left: 6px solid #ffb86b;
+  color: #7c4a03;
+}
+
+.blog-card {
+  width: 19rem;
+  background: #fff8f1;
+  border-radius: 1.2rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.blog-card:hover {
+  box-shadow: 0 6px 24px 0 #ffb86b44;
+  transform: translateY(-4px) scale(1.03);
+}
+.blog-card-img {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1.2rem 1.2rem 0 0;
+}
+
+.btn-accent, input[type="submit"], button[type="submit"] {
+  background: #ff9f43;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 0.5rem 1.5rem;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 1rem;
+  align-self: flex-end;
+  display: inline-block;
+}
+.btn-accent:hover, input[type="submit"]:hover, button[type="submit"]:hover,
+.btn-accent:focus, input[type="submit"]:focus, button[type="submit"]:focus {
+  background: #ffb86b;
+  color: #5a3e1b;
+}
+
+.add-blog-form, .signin-form, .signup-form, .comments-section, .blog-post-card {
+  background: #fff8f1;
+  border-left: 6px solid #ffb86b;
+}
+
+input.form-control, textarea.form-control {
+  border-radius: 1rem;
+  border: 1px solid #ffb86b;
+  background: #fff7ed;
+}
+input.form-control:focus, textarea.form-control:focus {
+  border-color: #ff9f43;
+  box-shadow: 0 0 0 2px #ffb86b44;
+}
+
+.author-info span {
+  color: #7c4a03;
+}
+
+.comment-content {
+  background: #fff3e0;
+  border-radius: 0.7rem;
+  padding: 0.5rem 1rem;
+  color: #5a3e1b;
+  font-size: 1rem;
+  white-space: pre-wrap;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #ffe5d0;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffb86b;
+  border-radius: 4px;
+}
+
+.blog-card .card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card .btn-accent {
+  margin-top: auto;
+  align-self: flex-end;
+  background: #ff9f43;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 0.5rem 1.5rem;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s;
+}
+.blog-card .btn-accent:hover, .blog-card .btn-accent:focus {
+  background: #ffb86b;
+  color: #5a3e1b;
+}
+
+.blog-cover-img {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 1.2rem;
+  background: #ffe5d0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+} 

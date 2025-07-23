@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>HomePage</title>
+</head>
+
+<body class="warm-bg" style="min-height:100vh;">
+  <%- include('./partials/nav') %>
+  <div class="container mt-3">
+    <div class="welcome-message p-4 mb-4 rounded-3 shadow-sm">
+      <h2 class="mb-1">Welcome to Blogify!</h2>
+      <p class="mb-0">A cozy place to share your stories, ideas, and moments. Grab a coffee and enjoy reading or writing blogs!</p>
+    </div>
+    <div class="d-flex flex-wrap gap-4 justify-content-start">
+      <% locals.blogs.forEach(blog => { %>
+        <div class="card blog-card shadow-sm border-0">
+          <img src="<%= blog.coverImageURL %>" class="card-img-top blog-card-img" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= blog.title %></h5>
+            <a href="/blog/<%= blog._id %>" class="btn btn-accent">View</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  <%- include('./partials/script') %>
+</body>
+
+
+
+</html>

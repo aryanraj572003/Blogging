@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>SIGNIN</title>
+</head>
+
+<body class="warm-bg" style="min-height:100vh;">
+    <%- include('./partials/nav') %>
+        <div class="container mt-4">
+            <div class="signin-form p-4 rounded-3 shadow-sm mb-4">
+                <h2 class="mb-3">Welcome Back!</h2>
+                <form method="post" action="/user/signin">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="email">
+                        <div id="email"  class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password">
+                    </div>
+                    <button type="submit" class="btn btn-accent">Submit</button>
+                </form>
+            </div>
+        </div>
+        <%- include('./partials/script') %>
+</body>
+
+</html>
