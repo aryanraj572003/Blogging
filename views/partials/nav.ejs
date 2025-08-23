@@ -1,7 +1,6 @@
-<nav class="navbar navbar-expand-lg custom-navbar shadow-sm">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg custom-navbar shadow-sm sticky-top navbar-dark">
+  <div class="container">
     <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-      <img src="/images/logo.jpg" alt="Logo" width="40" height="40" class="rounded-circle border border-2 border-warning" style="object-fit:cover;">
       <span class="fw-bold site-title">Blogify</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -9,30 +8,34 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" aria-current="page" href="/">Home</a>
         </li>
         <% if (locals.user) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/blog/add-new">Add Blog</a>
+            <a class="nav-link" href="/blog/add-new">New Post</a>
           </li>
         <% } %>
         <% if (!locals.user) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/user/signup">Create Account</a>
+            <a class="nav-link" href="/user/signup">Sign Up</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/signin">Signin</a>
+            <a class="nav-link" href="/user/signin">Sign In</a>
+
           </li>
         <% } %>
         <% if (locals.user) { %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <%= locals.user.fullName %>
+          <li class="nav-item dropdown ms-2">
+            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="<%= locals.user.profileImageURL || '/images/default.png' %>" alt="Profile" width="32" height="32" class="rounded-circle" style="object-fit:cover;">
+              <span><%= locals.user.fullName %></span>
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/user/logout">Log out</a></li>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+              <li><a class="dropdown-item" href="/user/profile/<%= locals.user._id %>"><i class="bi bi-person"></i> My Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/user/logout"><i class="bi bi-box-arrow-right"></i> Log out</a></li>
             </ul>
           </li>
         <% } %>

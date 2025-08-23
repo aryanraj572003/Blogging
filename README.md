@@ -43,8 +43,9 @@ A full-stack blogging platform that allows users to create, read, comment on, an
   - *Why?* To protect routes and ensure only authorized users can perform certain actions.
 
 ### File Uploads
-- **Local Storage (public/uploads/)**
-  - *Why?* Simple and effective for small projects. Easy to switch to cloud storage later if needed.
+- **Cloudinary Cloud Storage**
+  - *Why?* Cloudinary provides powerful image and video management with automatic optimization, transformations, and CDN delivery. Perfect for blog images with built-in resizing and optimization.
+  - *How it works:* Images are uploaded directly to Cloudinary using multer-storage-cloudinary, and the optimized URLs are stored in the database for retrieval.
 
 ---
 
@@ -92,21 +93,34 @@ Blogging_copy/
 
 3. **Set up environment variables:**
    - Create a `.env` file in the root directory.
-   - Add your MongoDB URI and any secret keys:
+   - Add your MongoDB URI, JWT secret, and Cloudinary credentials:
      ```
-     MONGODB_URI=mongodb://localhost:27017/blogging
-     SESSION_SECRET=your_secret_key
+     MONGO_URL=mongodb://localhost:27017/blogging
      JWT_SECRET=your_jwt_secret
+     CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+     CLOUDINARY_API_KEY=your_cloudinary_api_key
+     CLOUDINARY_API_SECRET=your_cloudinary_api_secret
      ```
 
-4. **Start MongoDB:**  
+4. **Set up Cloudinary:**
+   - Create a free Cloudinary account at [cloudinary.com](https://cloudinary.com)
+   - Get your Cloud Name, API Key, and API Secret from the dashboard
+   - Configure upload presets if needed for additional security
+
+5. **Start MongoDB:**  
    Make sure your MongoDB server is running locally or use a MongoDB Atlas connection string.
 
-5. **Run the app:**
+6. **Test Cloudinary Connection (Optional):**
+   ```bash
+   npm run test-cloudinary
+   ```
+   This will verify your Cloudinary configuration is working correctly.
+
+7. **Run the app:**
    ```bash
    npm start
    ```
-   The app will be available at `http://localhost:3000`.
+   The app will be available at `http://localhost:8000`.
 
 ---
 
@@ -120,6 +134,47 @@ Blogging_copy/
   View a blog post and add comments.
 - **Edit/Delete:**  
   Only the author can edit or delete their own blogs.
+
+## ☁️ Cloudinary Setup
+
+### Prerequisites
+- Cloudinary account (free tier available)
+- Node.js and npm installed
+
+### Cloudinary Account Setup
+
+1. **Create Cloudinary Account:**
+   - Go to [cloudinary.com](https://cloudinary.com)
+   - Sign up for a free account
+   - Verify your email address
+
+2. **Get Your Credentials:**
+   - Log in to your Cloudinary dashboard
+   - Go to "Dashboard" → "Account Details"
+   - Copy your Cloud Name, API Key, and API Secret
+
+3. **Configure Upload Settings (Optional):**
+   - Go to "Settings" → "Upload"
+   - Configure upload presets for additional security
+   - Set up allowed file formats and size limits
+
+### Environment Variables
+
+Add these to your `.env` file:
+```
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+### Features Included
+
+- **🔄 Automatic Image Optimization**: Images are automatically resized and optimized
+- **📱 Responsive Images**: Different sizes for different devices
+- **🖼️ Thumbnail Generation**: Automatic thumbnail creation
+- **🗑️ Automatic Cleanup**: Images are deleted when blogs are deleted
+- **🛡️ File Validation**: Only image files are accepted
+- **⚡ CDN Delivery**: Fast global content delivery
 
 ---
 

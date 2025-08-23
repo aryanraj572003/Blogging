@@ -14,6 +14,17 @@ const blogSchema = new Schema({
         type:String,
         required:false,
     },
+    category:{
+        type:String,
+        enum: ['Technology', 'Health', 'Lifestyle', 'Fashion'],
+        required:true,
+        default:'Technology'
+    },
+    likes:{
+        type:[Schema.Types.ObjectId],
+        ref:"User",
+        default:[]
+    },
     createdBy:{
         type:Schema.Types.ObjectId,
         ref:"User"

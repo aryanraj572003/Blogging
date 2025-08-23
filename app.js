@@ -8,6 +8,8 @@ const { checkForAuthenticationCookie } = require("./middlewares/authentication")
 const userRoute = require("./routes/user")
 const blogRoute = require("./routes/blog")
 const Blog = require("./models/blog")
+const errorHandler = require("./middlewares/errorHandler")
+const { getSafeImageUrl } = require("./services/imageUtils")
 
 
 const app = express();
@@ -29,10 +31,18 @@ app.use('/user',userRoute)
 app.use('/blog',blogRoute)
 
 app.get('/',async (req,res)=>{
-    const allBlogs = await Blog.find({})
+    const allBlogs = await Blog.find({}).populate('createdBy')
+    
+    // Process image URLs for all blogs
+    allBlogs.forEach(blog => {
+        blog.coverImageURL = getSafeImageUrl(blog.coverImageURL);
+    });
+    
     res.render('home',{"user":req.userinfo,"blogs":allBlogs})
 })
 
+// Error handling middleware (must be last)
+app.use(errorHandler)
 
 app.listen(PORT,()=>{
     console.log(`Server Started on ${PORT}`)

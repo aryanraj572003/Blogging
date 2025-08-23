@@ -3,26 +3,38 @@
 
 <head>
     <%- include('./partials/head') %>
-        <title>SIGNIN</title>
+        <title>Sign In | Blogify</title>
 </head>
 
-<body class="warm-bg" style="min-height:100vh;">
+<body style="min-height:100vh;">
     <%- include('./partials/nav') %>
-        <div class="container mt-4">
-            <div class="signin-form p-4 rounded-3 shadow-sm mb-4">
-                <h2 class="mb-3">Welcome Back!</h2>
-                <form method="post" action="/user/signin">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="email">
-                        <div id="email"  class="form-text">We'll never share your email with anyone else.</div>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="signin-form p-4 p-md-5 bg-light mb-4 border border-black rounded-4">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bold mb-3">Welcome Back</h1>
+                            <p class="text-muted">Sign in to continue to Blogify</p>
+                        </div>
+                        <form method="post" action="/user/signin">
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" name="email" class="form-control border border-black rounded-2" id="exampleInputEmail1" aria-describedby="email" placeholder="name@example.com">
+                                <div id="email" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control border border-black rounded-2" id="password" placeholder="Enter your password">
+                            </div>
+                            <div class="d-grid mt-5">
+                                <button type="submit" class="btn btn-dark border border-black rounded-2 btn-lg text-uppercase">Sign In</button>
+                            </div>
+                            <div class="text-center mt-4">
+                                <p class="mb-0">Don't have an account? <a href="/user/signup" class="text-decoration-none text-dark fw-semibold">Sign up</a></p>
+                            </div>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="password">
-                    </div>
-                    <button type="submit" class="btn btn-accent">Submit</button>
-                </form>
+                </div>
             </div>
         </div>
         <%- include('./partials/script') %>
