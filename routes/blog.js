@@ -42,33 +42,38 @@ router.post('/comment/:blogId',async (req,res)=>{
 // Like/unlike a blog post
 router.post('/like/:blogId', async (req, res) => {
     try {
+        // User not logged in
         if (!req.userinfo) {
-            return res.redirect('/user/signin');
+            return res.status(401).json({ success: false, redirect: '/user/signin' });
         }
-        
+
         const blog = await Blog.findById(req.params.blogId);
         if (!blog) {
-            return res.status(404).json({ error: 'Blog not found' });
+            return res.status(404).json({ success: false, message: 'Blog not found' });
         }
-        
-        // Check if user already liked the post
-        const userIndex = blog.likes.indexOf(req.userinfo._id);
-        
+
+        const userId = req.userinfo._id;
+        const userIndex = blog.likes.indexOf(userId);
+
+        let liked;
         if (userIndex === -1) {
-            // User hasn't liked the post yet, add like
-            blog.likes.push(req.userinfo._id);
+            // Like
+            blog.likes.push(userId);
+            liked = true;
         } else {
-            // User already liked the post, remove like
+            // Unlike
             blog.likes.splice(userIndex, 1);
+            liked = false;
         }
-        
+
         await blog.save();
-        return res.redirect(`/blog/${req.params.blogId}`);
+        return res.json({ success: true, liked, likes: blog.likes.length });
     } catch (error) {
         console.error('Error liking/unliking blog:', error);
-        return res.status(500).json({ error: 'Error processing like' });
+        return res.status(500).json({ success: false, message: 'Error processing like' });
     }
-})
+});
+
 
 // Delete blog route with Cloudinary file cleanup
 router.delete('/:id', async (req, res) => {

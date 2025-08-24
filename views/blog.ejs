@@ -21,7 +21,8 @@
                             </h1>
                             <div class="d-flex align-items-center gap-3 mb-5 author-info" style="height: 30px;">
                                 <a href="/user/profile/<%= blog.createdBy._id %>" class="text-decoration-none">
-                                    <img src="<%= blog.createdBy.profileImageURL %>" width="30px" class="rounded-circle" style="object-fit: cover;">
+                                    <img src="<%= blog.createdBy.profileImageURL %>" width="30px" class="rounded-circle"
+                                        style="object-fit: cover;">
                                 </a>
                                 <div>
                                     <a href="/user/profile/<%= blog.createdBy._id %>" class="text-decoration-none">
@@ -31,7 +32,8 @@
                                     </a>
                                     <div class="d-flex align-items-center gap-3">
                                         <small class="text-muted"><i class="bi bi-calendar3"></i>
-                                            <%= new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                                            <%= new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric' ,
+                                                month: 'long' , day: 'numeric' }) %>
                                         </small>
                                         <span class="badge bg-dark rounded-2" style="color: aliceblue;">
                                             <%= blog.category %>
@@ -41,7 +43,8 @@
                             </div>
                             <img src="<%= blog.coverImageURL %>" class="blog-cover-img mb-5" alt="<%= blog.title %>">
                             <div class="mt-5 blog-body-text fs-6">
-                                <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; font-family: 'Poppins', sans-serif;"><%= blog.body %></pre>
+                                <pre
+                                    style="white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; font-family: 'Poppins', sans-serif;"><%= blog.body %></pre>
                             </div>
                         </div>
                     </div>
@@ -53,60 +56,91 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
+                        <div>
+                            <% if (locals.user) { %>
+                                <!-- User is logged in -->
+                                <button class="btn btn-link p-0 border-0" id="like-btn" data-blogid="<%= blog._id %>">
+                                    <i class="bi <%= blog.likes.includes(user._id) ? 'bi-heart-fill' : 'bi-heart' %> fs-7"
+                                        style="color:#ff0000;"></i>
+                                </button>
+                                <% } else { %>
+                                    <!-- Not logged in (always unfilled) -->
+                                    <button class="btn btn-link p-0 border-0" id="like-btn"
+                                        data-blogid="<%= blog._id %>">
+                                        <i class="bi bi-heart fs-7" style="color:#ff0000;"></i>
+                                    </button>
+                                    <% } %>
+                                        <span class="fs-6" id="like-count">
+                                            <%= blog.likes.length %> Likes
+                                        </span>
+                        </div>
+
                         <h3 class="mb-4 fw-bold pt-3">Comments</h3>
                         <% if (locals.user) { %>
                             <form action="/blog/comment/<%= blog._id %>" method="post" class="mb-5">
                                 <div class="mb-3">
-                                    <textarea name="content" class="form-control border border-black rounded-2" rows="3" placeholder="Add a comment..." required></textarea>
+                                    <textarea name="content" class="form-control border border-black rounded-2" rows="3"
+                                        placeholder="Add a comment..." required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-dark border border-black rounded-2"><i class="bi bi-send"></i> Post Comment</button>
+                                <button type="submit" class="btn btn-dark border border-black rounded-2"><i
+                                        class="bi bi-send"></i> Post Comment</button>
                             </form>
-                        <% } else { %>
-                            <div class="mb-4">
-                                <a href="/user/signin" class="alert-link">Sign in</a> to post a comment.
-                            </div>
-                        <% } %>
-                        <% if (comments.length === 0) { %>
-                            <div class="text-center py-4">
-                                <p class="text-muted">No comments yet. Be the first to comment!</p>
-                            </div>
-                        <% } else { %>
-                            <div class="comments-list">
-                                <% comments.forEach(comment => { %>
-                                    <div class="comment-item mb-4 pb-4 border-bottom">
-                                        <div class="d-flex gap-3 mb-3">
-                                            <a href="/user/profile/<%= comment.createdBy._id %>" class="text-decoration-none">
-                                                <img src="<%= comment.createdBy.profileImageURL %>" width="40px" class="rounded-circle" style="object-fit: cover;">
-                                            </a>
-                                            <div>
-                                                <a href="/user/profile/<%= comment.createdBy._id %>" class="text-decoration-none">
-                                                    <span class="fw-semibold d-block">
-                                                        <%= comment.createdBy.fullName %>
-                                                    </span>
-                                                </a>
-                                                <small class="text-muted"><i class="bi bi-clock"></i>
-                                                    <%= new Date(comment.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %>
-                                                </small>
-                                            </div>
+                            <% } else { %>
+                                <div class="mb-4">
+                                    <a href="/user/signin" class="alert-link">Sign in</a> to post a comment.
+                                </div>
+                                <% } %>
+                                    <% if (comments.length===0) { %>
+                                        <div class="text-center py-4">
+                                            <p class="text-muted">No comments yet. Be the first to comment!</p>
                                         </div>
-                                        <div class="comment-content bg-light rounded-0 border-start border-dark border-3 p-2">
-                                            <div class="small">
-                                                <%= comment.content %>
+                                        <% } else { %>
+                                            <div class="comments-list">
+                                                <% comments.forEach(comment=> { %>
+                                                    <div class="comment-item mb-4 pb-4 border-bottom">
+                                                        <div class="d-flex gap-3 mb-3">
+                                                            <a href="/user/profile/<%= comment.createdBy._id %>"
+                                                                class="text-decoration-none">
+                                                                <img src="<%= comment.createdBy.profileImageURL %>"
+                                                                    width="40px" class="rounded-circle"
+                                                                    style="object-fit: cover;">
+                                                            </a>
+                                                            <div>
+                                                                <a href="/user/profile/<%= comment.createdBy._id %>"
+                                                                    class="text-decoration-none">
+                                                                    <span class="fw-semibold d-block">
+                                                                        <%= comment.createdBy.fullName %>
+                                                                    </span>
+                                                                </a>
+                                                                <small class="text-muted"><i class="bi bi-clock"></i>
+                                                                    <%= new
+                                                                        Date(comment.createdAt).toLocaleDateString('en-US',
+                                                                        { year: 'numeric' , month: 'short' ,
+                                                                        day: 'numeric' }) %>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="comment-content bg-light rounded-0 border-start border-dark border-3 p-2">
+                                                            <div class="small">
+                                                                <%= comment.content %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
                                             </div>
-                                        </div>
-                                    </div>
-                                <% }) %>
-                            </div>
-                        <% } %>
-                        <% if (locals.user && blog.createdBy._id.toString()===locals.user._id.toString()) { %>
-                            
-                            <button id="deletePostBtn" class="btn btn-danger">Delete Post</button>
-                        <% } %>
+                                            <% } %>
+                                                <% if (locals.user &&
+                                                    blog.createdBy._id.toString()===locals.user._id.toString()) { %>
+
+                                                    <button id="deletePostBtn" class="btn btn-danger">Delete
+                                                        Post</button>
+                                                    <% } %>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-        
+
         <%- include('./partials/script') %>
 
             <% if (locals.user && blog.createdBy._id.toString()===locals.user._id.toString()) { %>
@@ -134,13 +168,49 @@
                     });
                 </script>
                 <% } %>
+                <script>
+                    const likeBtn = document.getElementById('like-btn');
+                    const likeCount = document.getElementById('like-count');
+                    const heartIcon = likeBtn.querySelector('i');
+                    const blogId = likeBtn.dataset.blogId;
+
+                    likeBtn.addEventListener('click', async () => {
+
+                        try {
+                            const res = await fetch(`/blog/like/<%= blog._id %>`, { method: 'POST' });
+                            const data = await res.json();
+
+                            if (data.redirect) {
+                                // If not logged in, redirect
+                                window.location.href = data.redirect;
+                                return;
+                            }
+
+                            if (data.success) {
+                                // Toggle heart icon
+                                if (data.liked) {
+                                    heartIcon.classList.remove('bi-heart');
+                                    heartIcon.classList.add('bi-heart-fill');
+                                } else {
+                                    heartIcon.classList.remove('bi-heart-fill');
+                                    heartIcon.classList.add('bi-heart');
+                                }
+                                // Update count
+                                likeCount.textContent = `${data.likes} Likes`;
+                            }
+                        } catch (err) {
+                            console.error('Error liking post:', err);
+                        }
+                    });
+                </script>
+
 </body>
 
 </html>
 
 <footer class="footer bg-dark text-white py-3">
-  <div class="container text-center">
-    <p>&copy; 2025 Blogging Platform. All rights reserved.</p>
-    <p><a href="/" class="text-white">Privacy Policy</a> | <a href="/" class="text-white">Terms of Service</a></p>
-  </div>
+    <div class="container text-center">
+        <p>&copy; 2025 Blogging Platform. All rights reserved.</p>
+        <p><a href="/" class="text-white">Privacy Policy</a> | <a href="/" class="text-white">Terms of Service</a></p>
+    </div>
 </footer>
