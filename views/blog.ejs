@@ -98,7 +98,10 @@
                                 <% }) %>
                             </div>
                         <% } %>
-                        <button id="deletePostBtn" class="btn btn-danger">Delete Post</button>
+                        <% if (locals.user && blog.createdBy._id.toString()===locals.user._id.toString()) { %>
+                            
+                            <button id="deletePostBtn" class="btn btn-danger">Delete Post</button>
+                        <% } %>
                 </div>
             </div>
         </div>
