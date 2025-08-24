@@ -62,21 +62,4 @@ async function testCloudinaryConnection() {
     }
 }
 
-// Check if required environment variables are set
-const requiredEnvVars = [
-    'CLOUDINARY_CLOUD_NAME',
-    'CLOUDINARY_API_KEY',
-    'CLOUDINARY_API_SECRET'
-];
-
-const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
-
-if (missingVars.length > 0) {
-    console.error('❌ Missing required environment variables:');
-    missingVars.forEach(varName => console.log(`  - ${varName}`));
-    console.log('\n💡 Please set these variables in your .env file.');
-    console.log('💡 You can get these from your Cloudinary dashboard.');
-    process.exit(1);
-}
-
 testCloudinaryConnection();

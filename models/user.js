@@ -51,7 +51,6 @@ userSchema.static("matchPasswordAndGenerateToken", async function (email, passwo
     if (!user) throw new Error("User not found");
 
     const salt = user.salt
-    // console.log(salt);
     const hashedPassword = user.password
     const userProvidedHash = createHmac('sha256', salt).update(password).digest('hex');
 

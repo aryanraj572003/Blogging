@@ -1,7 +1,6 @@
 const errorHandler = (err, req, res, next) => {
     console.error('Error:', err);
 
-    // Handle multer errors (file upload errors)
     if (err.code === 'LIMIT_FILE_SIZE') {
         return res.status(400).json({
             error: 'File too large. Maximum file size is 5MB.'
@@ -14,7 +13,6 @@ const errorHandler = (err, req, res, next) => {
         });
     }
 
-    // Handle Cloudinary errors
     if (err.http_code === 400) {
         return res.status(400).json({
             error: 'Invalid file format or corrupted file.'
@@ -33,14 +31,12 @@ const errorHandler = (err, req, res, next) => {
         });
     }
 
-    // Handle file type errors
     if (err.message === 'Only image files are allowed!') {
         return res.status(400).json({
             error: 'Only image files are allowed!'
         });
     }
 
-    // Handle validation errors
     if (err.name === 'ValidationError') {
         return res.status(400).json({
             error: 'Validation error',
@@ -48,14 +44,12 @@ const errorHandler = (err, req, res, next) => {
         });
     }
 
-    // Handle MongoDB errors
     if (err.name === 'CastError') {
         return res.status(400).json({
             error: 'Invalid ID format'
         });
     }
 
-    // Default error
     res.status(500).json({
         error: 'Internal server error',
         message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'

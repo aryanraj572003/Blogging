@@ -41,7 +41,6 @@ router.get('/logout',(req,res)=>{
 
 router.get('/profile/:userId', async (req, res) => {
     try {
-        // Find the user by ID
         const user = await User.findById(req.params.userId);
         if (!user) {
             return res.status(404).render('error', { 
@@ -50,15 +49,12 @@ router.get('/profile/:userId', async (req, res) => {
             });
         }
 
-        // Find all blogs by this user
         const userBlogs = await Blog.find({ createdBy: req.params.userId }).sort({ createdAt: -1 });
         
-        // Process image URLs for all blogs
         userBlogs.forEach(blog => {
             blog.coverImageURL = getSafeImageUrl(blog.coverImageURL);
         });
 
-        // Render the author profile page
         return res.render('authorProfile', {
             user: req.userinfo,
             author: user,

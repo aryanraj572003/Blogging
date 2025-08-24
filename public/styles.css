@@ -4,6 +4,8 @@ body, .warm-bg {
   color: #333333;
   line-height: 1.5;
   font-size: 0.9rem;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 h1, h2, h3, h4, h5, h6, .site-title {
@@ -130,13 +132,9 @@ input.form-control:focus, textarea.form-control:focus {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  background: #f1f5f9;
+  display: none;
 }
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 8px;
-}
+
 
 .blog-card .card-body {
   display: flex;
